@@ -1,0 +1,111 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <title>HCP</title>  
+
+     <!-- 引入样式 -->
+     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> 
+      
+</head>
+<body>
+ 
+    <div id="app" style="padding:30px;text-align:center;font-size:16px">
+	
+	<div><span style="font-size:32px">{{wee}}<span></div>
+    <div>X15%: {{tests}}</div>
+    <div>V1: {{endata1}}</div>
+	<div style="margin-bottom:18px">V2: {{endata2}}</div>
+	  
+    <input @keyup="test" @click="clear(1)" placeholder="c" type="number" v-model="input1"/>
+    <input @keyup="test" @click="clear(2)" placeholder="g" type="number" v-model="input2"/> 
+    <input @keyup="test" @click="clear(3)" placeholder="%" type="number" v-model="input3"/>
+	<input @keyup="test" @click="clear(4)" placeholder="%" type="number" v-model="input4"/>
+ 
+   
+
+    </div>
+
+    <style>
+        input,.el-button,div{
+            margin-bottom:10px; 
+			text-align:center;
+        }
+		
+		input{
+		  height:35px; 
+		}
+    </style>
+
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script> 
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	
+    <script>
+      new Vue({
+      el: '#app',
+      data: function(){
+          return {
+            input1:"",
+            input2:"",
+            input3:"6",
+            input4:"3",			
+            tests:"0",
+            wee:"NO",
+            endata1:"0",
+			endata2:"0"
+          }
+        },
+        created: function () {
+           
+          document.getElementById("app").style.display="block"; 
+            
+        },
+        methods:{
+            test:function(){
+			  let li=this.input2-this.input1;   
+              let aa=li/this.input2*1;
+              if(aa>0.15){
+                  this.wee="YES"
+				  let dat0=this.input2*0.15+"";
+				  this.tests=dat0.substring(0,4);
+				  let dat1=(li-this.tests)*this.input3*0.01+""; 
+				  this.endata1=dat1.substring(0,4);
+				  let dat2=(li-this.tests)*this.input4*0.01+""; 
+				  this.endata2=dat2.substring(0,4);
+              }else{
+                  this.wee="NO"
+				  this.tests=0;
+				  this.endata1=0; 
+				  this.endata2=0; 
+              }
+
+            },
+			
+			clear:function(val){
+				 switch(val)
+					{
+						case 1:
+							this.input1='';
+							break;
+						case 2:
+							this.input2='';
+							break;
+						case 3:
+							this.input3='';
+							break;
+						case 4:
+							this.input4='';
+							break; 
+					}
+			}
+			
+			
+        }
+      })
+    </script>
+
+</body> 
+</html> 
